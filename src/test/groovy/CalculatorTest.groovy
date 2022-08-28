@@ -1,5 +1,10 @@
 import spock.lang.Specification
 import spock.lang.Unroll
+// testes devem: ser simples (funcoes basicas do sistema devem ser cobertas), cobrir as regras do negócio (visando situacoes limite)
+// não fazer testes redundantes
+// testes devem ser resilientes a mudança
+// teste deve ser claro, auxiliar a leitura e até servir como documentacao da regra de negocio
+
 
 class CalculatorTest extends Specification {
 
