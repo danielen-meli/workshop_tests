@@ -4,6 +4,23 @@ import spock.lang.Specification
 
 class EmailServiceTest extends Specification {
 
+    // metodos para testar: save, update
+    // save - nao pode ser null, tem que ter Id e email pra salvar
+    def "Should save email - status ok"(){
+        given:
+        when:
+        then:
+    }
+
+
+    // update
+    def "Should update email - status ok"(){
+        given:
+        when:
+        then:
+    }
+
+
     def "should return ordered list"() {
         given:
             List<Email> mockedList = [
