@@ -1,5 +1,3 @@
-import api.EmailApi;
-import model.Email;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -60,5 +58,63 @@ public class EmailService {
         return emails.stream()
                 .sorted(Comparator.comparing(Email::getEmail))
                 .collect(Collectors.toList());
+    }
+
+
+}
+
+class Email {
+    private Long id;
+    private String email;
+
+    public Email() {
+    }
+
+    public Email(Long id, String email) {
+        this.id = id;
+        this.email = email;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Email otherEmail = (Email) o;
+        return otherEmail != null
+                && id.equals(otherEmail.id)
+                && email.equals(otherEmail.email);
+    }
+}
+
+class EmailApi {
+
+    public Email get(Long id) {
+        throw new RuntimeException("DON'T IMPLEMENT NOR REMOVE IT");
+    }
+
+    public void save(Email email) {
+        throw new RuntimeException("DON'T IMPLEMENT NOR REMOVE IT");
+    }
+
+    public void update(Email email) {
+        throw new RuntimeException("DON'T IMPLEMENT NOR REMOVE IT");
+    }
+
+    public List<Email> fetchList() {
+        throw new RuntimeException("DON'T IMPLEMENT NOR REMOVE IT");
     }
 }

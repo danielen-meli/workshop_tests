@@ -1,5 +1,4 @@
-import api.EmailApi
-import model.Email
+import EmailApi
 import org.mockito.Mockito
 import spock.lang.Specification
 

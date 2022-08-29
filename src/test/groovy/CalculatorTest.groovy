@@ -33,4 +33,24 @@ class CalculatorTest extends Specification {
             1.0f   | 1.0f   | 1f
             1.0f   | 0f     | 0f
     }
+
+    @Unroll
+    def "should absolut sum"() {
+        when:
+        Integer result = Calculator.absoluteSum(valueA, valueB)
+
+        then:
+        result == expectedResult
+
+        where:
+        valueA | valueB | expectedResult
+        null   | 23     | null
+        6      | null   | null
+        3      | 2      | 5
+        -2     | 5      | 7
+        -1     | -1     | 2
+        10     | -9     | 19
+    } // tem que levar mais ao limite?
+    // fiz testes demais?
+
 }
