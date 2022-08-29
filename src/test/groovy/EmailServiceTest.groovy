@@ -3,22 +3,43 @@ import org.mockito.Mockito
 import spock.lang.Specification
 
 class EmailServiceTest extends Specification {
-
     // metodos para testar: save, update
-    // save - nao pode ser null, tem que ter Id e email pra salvar
-    def "Should save email - status ok"(){
+
+    def "Should NOT return saved email if MAIL null or empty" (){
         given:
+            EmailApi mockEmailApi = Mockito.mock(EmailApi)
+            EmailService mockEmailService = new EmailService(mockEmailApi)
         when:
+            mockEmailService.save(mail)
+
         then:
+            def error = thrown(planedexception)
+            error.message == message
+
+        where:
+            mail | planedexception  | message
+            null | RuntimeException | "Email should not be empty"
+            ""   | RuntimeException | "Email should not be empty"
+    } // se testa mail como " " o teste não passa pq não lança a exceção - não tem validação do tamanho do email, logo ele deve tá aceitando um espaço como válido.
+
+    def "Should return saved email if is valid" () {
+        given: "A valid email"
+            Email mockedMail = new Email(1, 'test@mail.com')
+
+        EmailApi mockEmailApi = Mockito.mock(EmailApi)
+        EmailService mockEmailService = new EmailService(mockEmailApi)
+
+        when:
+            def savedMail = mockEmailService.save('test@mail.com')
+
+        then:
+            savedMail.getEmail() == mockedMail.getEmail()
+        // pode fazer o teste final assim??
+        // não consegui testar o ID, como seria?
+
     }
 
 
-    // update
-    def "Should update email - status ok"(){
-        given:
-        when:
-        then:
-    }
 
 
     def "should return ordered list"() {
