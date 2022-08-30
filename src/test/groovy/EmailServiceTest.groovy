@@ -28,19 +28,20 @@ class EmailServiceTest extends Specification {
 
         EmailApi mockEmailApi = Mockito.mock(EmailApi)
         EmailService mockEmailService = new EmailService(mockEmailApi)
+        //Mockito.when(mockEmailApi.save()).thenAnswer(mockedMail)
+        // terminar o mock - mock do retorno do mock - tipo isso:
+        // save é void, como faz o return dele no mock?
 
         when:
             def savedMail = mockEmailService.save('test@mail.com')
 
         then:
             savedMail.getEmail() == mockedMail.getEmail()
+            savedMail.getId() != null
         // pode fazer o teste final assim??
-        // não consegui testar o ID, como seria?
+        // consegui testar o ID como existente, mas não pelo mock
 
     }
-
-
-
 
     def "should return ordered list"() {
         given:
