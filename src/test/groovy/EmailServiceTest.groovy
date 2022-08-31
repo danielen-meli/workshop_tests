@@ -1,4 +1,3 @@
-import EmailApi
 import org.mockito.Mockito
 import spock.lang.Specification
 
