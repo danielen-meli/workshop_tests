@@ -3,11 +3,14 @@ import spock.lang.Specification
 
 class ListHelperTest extends Specification {
     def "should return minValue "() {
-        given:
+        given: // usar o setup pra não ficar respetindo os mocks em cada given
+
             ListApi mockedListApi = Mockito.mock(ListApi) // mocka a api
             ListHelper listHelper = new ListHelper(mockedListApi) // mock a lista
 
-            List<Integer> list = [1, 5, 8, 0, 4, 6, 2, 7] // lista teste (é hard code? pode ficar assim?)
+            // usar um input pra poder testar no where varios cenarios, e não só este.
+            List<Integer> list = [1, 5, 8, 0, 4, 6, 2, 7]
+
 
             Mockito.when(mockedListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
 
@@ -59,7 +62,7 @@ class ListHelperTest extends Specification {
         when:
           Double result = listHelper.average();
         then:
-            result == 3 //
+            result == 3
     }
 
 }

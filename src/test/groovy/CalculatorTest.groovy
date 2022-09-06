@@ -49,7 +49,7 @@ class CalculatorTest extends Specification {
         3      | 2      | 5
         -2     | 5      | 7
         -1     | -1     | 2
-        10     | -9     | 19
+    //    10     | -9     | 19
     } // tem que levar mais ao limite?
     // fiz testes demais?
 

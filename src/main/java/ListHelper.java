@@ -58,7 +58,7 @@ public class ListHelper {
 
     public Double average(){
         return list().stream().mapToDouble(d -> d)
-                .average().orElse(0.0);
-    }
+                .average().getAsDouble();
+    } //    qdo é double tem um get só dele... um get só pra DOUBLE pq ele é chique meu amor!
 
 }

@@ -1,36 +1,35 @@
 import org.mockito.Mockito
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class EmailServiceTest extends Specification {
-    // metodos para testar: save, update
+
+    EmailApi  mockEmailApi
+    EmailService mockEmailService
+
+    def setup(){
+         mockEmailApi = Mockito.mock(EmailApi)
+         mockEmailService =  new EmailService(mockEmailApi)
+    }
 
     def "Should NOT return saved email if MAIL null or empty" (){
-        given:
-            EmailApi mockEmailApi = Mockito.mock(EmailApi)
-            EmailService mockEmailService = new EmailService(mockEmailApi)
         when:
             mockEmailService.save(mail)
-
         then:
             def error = thrown(planedexception)
             error.message == message
 
         where:
-            mail | planedexception  | message
+            mail| planedexception  | message
             null | RuntimeException | "Email should not be empty"
             ""   | RuntimeException | "Email should not be empty"
-    } // se testa mail como " " o teste não passa pq não lança a exceção - não tem validação do tamanho do email, logo ele deve tá aceitando um espaço como válido.
+            ' '  | RuntimeException | "Email should not be empty"
+    }
+
 
     def "Should return saved email if is valid" () {
         given: "A valid email"
             Email mockedMail = new Email(1, 'test@mail.com')
-
-        EmailApi mockEmailApi = Mockito.mock(EmailApi)
-        EmailService mockEmailService = new EmailService(mockEmailApi)
-        //Mockito.when(mockEmailApi.save()).thenAnswer(mockedMail)
-        // terminar o mock - mock do retorno do mock - tipo isso:
-        // save é void, como faz o return dele no mock?
-
         when:
             def savedMail = mockEmailService.save('test@mail.com')
 
@@ -41,6 +40,46 @@ class EmailServiceTest extends Specification {
         // consegui testar o ID como existente, mas não pelo mock
 
     }
+
+    // UPDATE EMAIL
+    def "Should return a UPDATED email when have a valid ID and a newEmail"(){
+    given:
+    Long mockedID = 1L
+    String newEmail = 'newTest@mail.com'
+    Email mockedMail = new Email(1, 'test@mail.com')
+    Mockito.when(mockEmailApi.get(mockedID)).thenReturn(mockedMail)
+
+    when:
+        def updatedMail = mockEmailService.update(mockedID, newEmail)
+    then:
+        updatedMail.getId() == 1L
+        updatedMail.getEmail() == newEmail
+        updatedMail.getEmail() != mockedMail
+    }
+
+    @Unroll
+    def "Should NOT return a Updated email because ID or newEmail is invalid"(){
+        when:
+        mockEmailService.update(id, newEmail)
+        then:
+        def error = thrown(planedexception)
+        error.message == message
+
+        where:
+        id    |  newEmail          | planedexception | message
+        null  | 'newTest@mail.com' | RuntimeException | "ID should not be empty"
+        0L    | 'newTest@mail.com' | RuntimeException | "ID should not be empty"
+        -8L   | 'mail@mail.com'    | RuntimeException | "ID should not be empty"
+        1L    | null               | RuntimeException | "Email should not be empty"
+        10L   | ''                 | RuntimeException | "Email should not be empty"
+
+
+
+    }
+
+
+
+
 
     def "should return ordered list"() {
         given:

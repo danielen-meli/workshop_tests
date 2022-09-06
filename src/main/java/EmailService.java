@@ -16,7 +16,8 @@ public class EmailService {
     }
 
     public Email save(String mail) {
-        if(mail == null || mail.isEmpty()){
+        // coloca o trim pra garantir que o empty é empty mesmo, e não só um espaço em branco (ideia do KEL).
+        if(mail == null || mail.trim().isEmpty()){
             throw new RuntimeException("Email should not be empty");
         }
 

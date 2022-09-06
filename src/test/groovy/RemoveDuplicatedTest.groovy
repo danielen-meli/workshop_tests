@@ -3,7 +3,7 @@ import spock.lang.Unroll
 
 class RemoveDuplicatedTest extends Specification {
 
-    def "should remove Duplicated"() {
+    /* def "should remove Duplicated"() {
         given: "A list with numbers"
             List<Integer> listWithRepeted = [1, 1, 2, 4, 4, 9, 9, 9, 11]
         and: "That list without the repeted numbers"
@@ -12,22 +12,23 @@ class RemoveDuplicatedTest extends Specification {
             List<Integer> result = RemoveDuplicated.removeDuplicate(listWithRepeted)
         then:
             result == listWithoutRepeted
-
     }
+    TESTE 'A TOA' PORÉM É UM EXEMPLO DE COMO USA O END
+    */
 
     @Unroll
-    def "should return a empty list and not a error"() {
-        given: "A empty list or a null input"
-            List<Integer> list = []
+    def "should remove Duplicated or do nothing when empty or null"() {
         when:
-            List<Integer> result = RemoveDuplicated.removeDuplicate(list)
-            List<Integer> result2 = RemoveDuplicated.removeDuplicate(null)
+            List<Integer> result = RemoveDuplicated.removeDuplicate(input)
+
         then:
-            result == []
+            expetecResult == result
         where:
         input      || expetecResult
         []         || []
         null       || []
+        [1,1,2,3]  || [1,2,3]
+        [1,2]      || [1,2]
     }
 
 }
