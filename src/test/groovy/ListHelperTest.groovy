@@ -2,67 +2,50 @@ import org.mockito.Mockito
 import spock.lang.Specification
 
 class ListHelperTest extends Specification {
+    ListApi mockListApi
+    ListHelper mockListHelper
+    List<Integer> list = [1, 5, 8, 0, 4, 6, 2, 7]
+
+    def setup(){
+     mockListApi = Mockito.mock(ListApi) // mocka a api
+     mockListHelper = new ListHelper(mockListApi) // mock a lista
+    }
+
+
     def "should return minValue "() {
-        given: // usar o setup pra não ficar respetindo os mocks em cada given
-
-            ListApi mockedListApi = Mockito.mock(ListApi) // mocka a api
-            ListHelper listHelper = new ListHelper(mockedListApi) // mock a lista
-
-            // usar um input pra poder testar no where varios cenarios, e não só este.
-            List<Integer> list = [1, 5, 8, 0, 4, 6, 2, 7]
-
-
-            Mockito.when(mockedListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
-
+        given:
+            Mockito.when(mockListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
         when:
-            Integer result = listHelper.minValue(); // encontra o min
+            Integer result = mockListHelper.minValue(); // encontra o min
         then:
             result == 0 // hard code, tem que ser 0.. mas só muda se mudar no teste, não no codigo... pode?)
     }
 
     def "should return maxValue "() {
         given:
-            ListApi mockedListApi = Mockito.mock(ListApi) // mocka a api
-            ListHelper listHelper = new ListHelper(mockedListApi) // mock a lista
-
-            List<Integer> list = [1, 5, 8, 0, 4, 6, 2, 7] // lista teste (é hard code? pode ficar assim?)
-
-            Mockito.when(mockedListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
-
+            Mockito.when(mockListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
         when:
-            Integer result = listHelper.maxValue();
+            Integer result = mockListHelper.maxValue();
         then:
             result == 8
     }
 
     def "should return size of list "() {
         given:
-        ListApi mockedListApi = Mockito.mock(ListApi) // mocka a api
-        ListHelper listHelper = new ListHelper(mockedListApi) // mock a lista
-
-        List<Integer> list = [1, 5, 8, 0, 4, 6, 2] // lista teste (é hard code? pode ficar assim?)
-
-        Mockito.when(mockedListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
-
+        Mockito.when(mockListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
         when:
-        Integer result = listHelper.size();
+        Integer result = mockListHelper.size();
         then:
-        result == 7
+        result == 8
     }
 
     def "should return average "() {
         given:
-        ListApi mockedListApi = Mockito.mock(ListApi) // mocka a api
-        ListHelper listHelper = new ListHelper(mockedListApi) // mock a lista
-
-        List<Integer> list = [1, 5, 6, 0] // lista teste (é hard code? pode ficar assim?)
-
-        Mockito.when(mockedListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
-
+            Mockito.when(mockListApi.fetchList()).thenReturn(list) // lê td pra poder retornar a lista
         when:
-          Double result = listHelper.average();
+            Double result = mockListHelper.average();
         then:
-            result == 3
+            result == 4.125
     }
 
 }

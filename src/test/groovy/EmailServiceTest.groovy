@@ -20,7 +20,7 @@ class EmailServiceTest extends Specification {
             error.message == message
 
         where:
-            mail| planedexception  | message
+            mail | planedexception  | message
             null | RuntimeException | "Email should not be empty"
             ""   | RuntimeException | "Email should not be empty"
             ' '  | RuntimeException | "Email should not be empty"
@@ -36,9 +36,6 @@ class EmailServiceTest extends Specification {
         then:
             savedMail.getEmail() == mockedMail.getEmail()
             savedMail.getId() != null
-        // pode fazer o teste final assim??
-        // consegui testar o ID como existente, mas não pelo mock
-
     }
 
     // UPDATE EMAIL
@@ -72,8 +69,6 @@ class EmailServiceTest extends Specification {
         -8L   | 'mail@mail.com'    | RuntimeException | "ID should not be empty"
         1L    | null               | RuntimeException | "Email should not be empty"
         10L   | ''                 | RuntimeException | "Email should not be empty"
-
-
 
     }
 

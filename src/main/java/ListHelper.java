@@ -48,6 +48,12 @@ public class ListHelper {
         return list().stream().min(Comparator.comparing(el -> el)).get();
     }
 
+    public Integer getMinValue(){
+        Integer min = Integer.MAX_VALUE;
+       // for Integer i in list
+        return  null;
+    }
+
     public Integer maxValue(){
         return list().stream().max(Comparator.comparing(el -> el)).get();
     }
@@ -61,4 +67,15 @@ public class ListHelper {
                 .average().getAsDouble();
     } //    qdo é double tem um get só dele... um get só pra DOUBLE pq ele é chique meu amor!
 
+
+    public Boolean numberElementsInSequence(){
+        // number of elements in the sequence == 6 && average value >= 20
+         Integer numberOfElements = 6;
+         Integer averageValueValid = 20;
+
+        if (size() == numberOfElements && average() >=20)
+            return true;
+
+        else return false;
+    }
 }
