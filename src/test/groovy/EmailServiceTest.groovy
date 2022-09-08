@@ -72,10 +72,6 @@ class EmailServiceTest extends Specification {
 
     }
 
-
-
-
-
     def "should return ordered list"() {
         given:
             List<Email> mockedList = [
